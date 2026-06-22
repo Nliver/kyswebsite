@@ -101,9 +101,9 @@ func QueryArticles(filter ArticleFilter) ([]Article, int64, error) {
 
 	// 排序
 	if filter.OrderDesc {
-		query = query.Order("publish_time desc")
+		query = query.Order("publish_time DESC NULLS LAST").Order("created_at DESC")
 	} else {
-		query = query.Order("publish_time asc")
+		query = query.Order("publish_time ASC NULLS LAST").Order("created_at ASC")
 	}
 
 	// 分页

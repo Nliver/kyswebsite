@@ -18,6 +18,7 @@ func CreateArticle(c *gin.Context) {
 		return
 	}
 
+	now := time.Now()
 	var article = models.Article{
 		Title:       req.Title,
 		Description: req.Desc,
@@ -31,6 +32,7 @@ func CreateArticle(c *gin.Context) {
 		Author:      req.Author,
 		Translator:  req.Translator,
 		Editor:      req.Editor,
+		PublishTime: &now,
 	}
 
 	uid, ok := c.Get("uid")
