@@ -114,8 +114,13 @@
     "hero": {
       "title": "KaiYuanShe",
       "subtitle": "Rooted in China, contributing globally.",
-      "heroHighlight": "Rooted in China, contributing globally,",
-      "heroSubtext": "promoting open source"
+      "heroHighlight": "Rooted in China · Contributing globally",
+      "heroSubtext": "Advancing open source as a way of life for a new era",
+      "heroEmphasis": "open source",
+      "heroKeywordChina": "China",
+      "heroKeywordGlobal": "globally",
+      "heroMicroline": "ROOTED IN CHINA · CONTRIBUTING GLOBALLY · OPEN SOURCE AS A WAY OF LIFE",
+      "heroCta": "About KaiYuanShe"
     },
     "carousel": {
       "viewDetails": "View Details"
