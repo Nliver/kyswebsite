@@ -114,8 +114,13 @@
     "hero": {
       "title": "开源社",
       "subtitle": "立足中国，贡献全球，推动开源成为新时代生活方式",
-      "heroHighlight": "立足中国，贡献全球，",
-      "heroSubtext": "推动开源成为新时代生活方式。"
+      "heroHighlight": "立足中国 · 贡献全球",
+      "heroSubtext": "推动开源成为新时代生活方式",
+      "heroEmphasis": "开源",
+      "heroKeywordChina": "中国",
+      "heroKeywordGlobal": "全球",
+      "heroMicroline": "ROOTED IN CHINA · CONTRIBUTING GLOBALLY · OPEN SOURCE AS A WAY OF LIFE",
+      "heroCta": "了解开源社"
     },
     "carousel": {
       "viewDetails": "查看详情"
