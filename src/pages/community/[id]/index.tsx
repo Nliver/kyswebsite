@@ -2,7 +2,7 @@ import type React from "react"
 import { Button, Card, Avatar, Tag, Spin, message, Modal, Input, Form, Upload, Popconfirm } from "antd"
 import {
   MapPin, Users, Globe, Building2, Mail, Calendar,
-  Github, Twitter, ArrowLeft, UserPlus, Star,
+  ArrowLeft, UserPlus, Star,
   Clock, MapPin as MapIcon, User, Link as LinkIcon,
   Upload as UploadIcon,
   Edit,

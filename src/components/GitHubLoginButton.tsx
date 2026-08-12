@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { Github } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 
 interface GitHubLoginButtonProps {
@@ -26,7 +26,7 @@ interface GitHubLoginButtonProps {
   return (
     <Button
       type="default"
-      icon={<Github size={18} />}
+      icon={<FaGithub size={18} />}
       onClick={handleGitHubSignIn}
       loading={loading}
       className={className}
