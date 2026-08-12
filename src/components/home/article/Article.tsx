@@ -4,24 +4,26 @@ import dayjs from 'dayjs'
 import { Tag } from 'antd'
 import styles from './Article.module.css'
 import { useTranslation } from '../../../hooks/useTranslation'
-
-type Article = {
-  ID: number
-  title: string
-  description: string
-  cover_img: string
-  category: string
-  tags: string[]
-  CreatedAt: string
-  author: string
-  view_count?: number
-}
+import type { Article } from '@/pages/api/article'
+import AsyncContentState from '@/components/base/AsyncContentState'
+import ContentCardSkeleton from '@/components/base/ContentCardSkeleton'
+import type { AsyncStatus } from '@/types/async'
 
 export function formatTime(isoTime: string): string {
   return dayjs(isoTime).format('YYYY年M月D日')
 }
 
-export default function ArticleSection({ articles }: { articles: Article[] }) {
+type ArticleSectionProps = {
+  articles: Article[]
+  status: AsyncStatus
+  onRetry: () => void
+}
+
+export default function ArticleSection({
+  articles,
+  status,
+  onRetry
+}: ArticleSectionProps) {
   const { t } = useTranslation()
 
   return (
@@ -36,57 +38,72 @@ export default function ArticleSection({ articles }: { articles: Article[] }) {
           </p>
         </div>
         <div className={styles.articlesGrid}>
-          {articles.map((article, index) => {
-            return (
-              <div key={article.ID || index} className={styles.articleCard}>
-                <div className={styles.articleCardGlow}></div>
-                <div className={styles.articleCardHeader}>
-                  <div className={styles.articleMeta}>
-                    <div className={styles.articleStats}>
-                      <div className={styles.statItem}>
-                        <Eye className={styles.articleIcon} />
-                        {article.view_count || 0}
+          {status === 'loading' && (
+            <ContentCardSkeleton label={t('common.loading')} />
+          )}
+
+          <AsyncContentState
+            status={status}
+            isEmpty={articles.length === 0}
+            emptyDescription={t('homepage.articles.empty')}
+            errorDescription={t('homepage.articles.loadError')}
+            retryLabel={t('homepage.articles.retry')}
+            onRetry={onRetry}
+            icon={<BookOpen />}
+          />
+
+          {status === 'success' &&
+            articles.map((article, index) => {
+              return (
+                <div key={article.ID || index} className={styles.articleCard}>
+                  <div className={styles.articleCardGlow}></div>
+                  <div className={styles.articleCardHeader}>
+                    <div className={styles.articleMeta}>
+                      <div className={styles.articleStats}>
+                        <div className={styles.statItem}>
+                          <Eye className={styles.articleIcon} />
+                          {article.view_count || 0}
+                        </div>
                       </div>
                     </div>
+                    <h3 className={styles.articleTitle}>{article.title}</h3>
+                    <p className={styles.articleDescription}>
+                      {article.description}
+                    </p>
                   </div>
-                  <h3 className={styles.articleTitle}>{article.title}</h3>
-                  <p className={styles.articleDescription}>
-                    {article.description}
-                  </p>
-                </div>
-                <div className={styles.articleCardContent}>
-                  <div className={styles.articleInfo}>
-                    <div className={styles.articleInfoItem}>
-                      <User className={styles.articleIcon} />
-                      {article.author || t('homepage.articles.unknownAuthor')}
-                    </div>
+                  <div className={styles.articleCardContent}>
+                    <div className={styles.articleInfo}>
+                      <div className={styles.articleInfoItem}>
+                        <User className={styles.articleIcon} />
+                        {article.author || t('homepage.articles.unknownAuthor')}
+                      </div>
 
-                    <div className={styles.articleInfoItem}>
-                      <Calendar className={styles.articleIcon} />
-                      {formatTime(article.CreatedAt)}
+                      <div className={styles.articleInfoItem}>
+                        <Calendar className={styles.articleIcon} />
+                        {formatTime(article.CreatedAt)}
+                      </div>
                     </div>
+                    {article.tags && article.tags.length > 0 && (
+                      <div className={styles.tagsContainer}>
+                        {article.tags
+                          .slice(0, 3)
+                          .map((tag: string, tagIndex: number) => (
+                            <Tag key={tagIndex} className={styles.tag}>
+                              {tag}
+                            </Tag>
+                          ))}
+                      </div>
+                    )}
+                    <Link href={`/blogs/${article.ID}`} passHref>
+                      <button className={styles.articleButton}>
+                        {t('homepage.articles.readArticle')}
+                        <ArrowRight className={styles.buttonIcon} />
+                      </button>
+                    </Link>
                   </div>
-                  {article.tags && article.tags.length > 0 && (
-                    <div className={styles.tagsContainer}>
-                      {article.tags
-                        .slice(0, 3)
-                        .map((tag: string, tagIndex: number) => (
-                          <Tag key={tagIndex} className={styles.tag}>
-                            {tag}
-                          </Tag>
-                        ))}
-                    </div>
-                  )}
-                  <Link href={`/blogs/${article.ID}`} passHref>
-                    <button className={styles.articleButton}>
-                      {t('homepage.articles.readArticle')}
-                      <ArrowRight className={styles.buttonIcon} />
-                    </button>
-                  </Link>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
         <div className={styles.sectionFooter}>
           <Link href="/blogs">

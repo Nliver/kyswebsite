@@ -1,0 +1,27 @@
+.statePanel {
+  grid-column: 1 / -1;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground-secondary);
+  text-align: center;
+}
+
+.empty {
+  margin: 0;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary-600);
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}

@@ -122,7 +122,11 @@
       "heroCta": "了解開源社"
     },
     "carousel": {
-      "viewDetails": "查看詳情"
+      "viewDetails": "查看詳情",
+      "loading": "正在載入推薦內容",
+      "loadError": "推薦內容載入失敗",
+      "retry": "重新載入",
+      "empty": "暫無推薦內容"
     },
     "events": {
       "title": "社群活動",
@@ -136,6 +140,9 @@
         "online": "線上活動",
         "offline": "線下活動"
       },
+      "loadError": "活動載入失敗，請稍後重試",
+      "retry": "重新載入",
+      "empty": "暫無活動",
       "learnMore": "了解詳情",
       "viewMore": "查看更多活動"
     },
@@ -147,6 +154,9 @@
         "translation": "翻譯",
         "archive": "歸檔"
       },
+      "loadError": "文章載入失敗，請稍後重試",
+      "retry": "重新載入",
+      "empty": "暫無文章",
       "readArticle": "閱讀文章",
       "viewMore": "查看更多文章",
 

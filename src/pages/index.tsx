@@ -1,6 +1,3 @@
-import type { GetStaticProps } from 'next'
-import { useEffect, useRef } from 'react'
-
 import styles from './index.module.css'
 
 import Hero from '@/components/home/hero/Hero'
@@ -11,37 +8,28 @@ import CarouselSession from '@/components/home/carousel/Carousel'
 import PartnersSection from '@/components/home/partners/Partners'
 import type { Event } from '@/pages/api/event'
 import type { Article } from '@/pages/api/article'
-import { getHomePageData } from '@/lib/server/homeData'
+import { fetchHomeArticles, fetchHomeEvents } from '@/lib/homeData'
+import { useAsyncList } from '@/hooks/useAsyncList'
 
-type HomePageProps = {
-  events: Event[]
-  articles: Article[]
-}
+export default function Home() {
+  const eventsState = useAsyncList<Event>(
+    fetchHomeEvents,
+    'Failed to load homepage events:'
+  )
+  const articlesState = useAsyncList<Article>(
+    fetchHomeArticles,
+    'Failed to load homepage articles:'
+  )
 
-export default function Home({ events, articles }: HomePageProps) {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    let animationFrame: number
-    const scrollContainer = scrollRef.current
-
-    const scroll = () => {
-      if (scrollContainer) {
-        scrollContainer.scrollLeft += 0.5
-        if (
-          scrollContainer.scrollLeft >=
-          scrollContainer.scrollWidth - scrollContainer.clientWidth
-        ) {
-          scrollContainer.scrollLeft = 0
-        }
-      }
-      animationFrame = requestAnimationFrame(scroll)
+  const retryCarousel = () => {
+    if (eventsState.status === 'error') {
+      void eventsState.reload()
     }
 
-    animationFrame = requestAnimationFrame(scroll)
-
-    return () => cancelAnimationFrame(animationFrame)
-  }, [])
+    if (articlesState.status === 'error') {
+      void articlesState.reload()
+    }
+  }
 
   return (
     <div className={styles.homepage}>
@@ -59,25 +47,30 @@ export default function Home({ events, articles }: HomePageProps) {
         }}
       >
         <Hero />
-        <CarouselSession events={events} articles={articles} />
+        <CarouselSession
+          events={eventsState.data}
+          articles={articlesState.data}
+          eventsStatus={eventsState.status}
+          articlesStatus={articlesState.status}
+          onRetry={retryCarousel}
+        />
       </div>
 
       {/* Activities Section */}
-      <EventSection events={events} />
-      <ArticleSection articles={articles} />
+      <EventSection
+        events={eventsState.data}
+        status={eventsState.status}
+        onRetry={eventsState.reload}
+      />
+      <ArticleSection
+        articles={articlesState.data}
+        status={articlesState.status}
+        onRetry={articlesState.reload}
+      />
       {/* Mission Section */}
       <MissionSection />
       {/* Partners Section */}
       <PartnersSection />
     </div>
   )
-}
-
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const { events, articles } = await getHomePageData()
-
-  return {
-    props: { events, articles },
-    revalidate: 60
-  }
 }
