@@ -27,6 +27,32 @@ type CarouselImage = {
   alt?: string
 }
 
+const CLOUDINARY_HOSTNAME = 'res.cloudinary.com'
+
+function getCloudinaryImageUrl(src: string, transformation: string) {
+  try {
+    const url = new URL(src)
+
+    if (url.hostname !== CLOUDINARY_HOSTNAME) {
+      return src
+    }
+
+    const uploadSegment = '/upload/'
+    const uploadIndex = url.pathname.indexOf(uploadSegment)
+
+    if (uploadIndex === -1) {
+      return src
+    }
+
+    const transformationIndex = uploadIndex + uploadSegment.length
+    url.pathname = `${url.pathname.slice(0, transformationIndex)}${transformation}/${url.pathname.slice(transformationIndex)}`
+
+    return url.toString()
+  } catch {
+    return src
+  }
+}
+
 export default function Carousel({
   events,
   articles
@@ -41,7 +67,7 @@ export default function Carousel({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const carouselImages = useMemo(() => {
     const eventImages = events
-      .map(event => {
+      .map((event) => {
         const isExternal = event.event_setting === 2 && event.bage_link
         return {
           src: event.cover_img || '',
@@ -50,23 +76,24 @@ export default function Carousel({
           openInNewTab: Boolean(isExternal)
         }
       })
-      .filter(image => Boolean(image.src))
+      .filter((image) => Boolean(image.src))
 
     const articleImages = articles
-      .map(article => ({
+      .map((article) => ({
         src: article.cover_img || '',
         alt: article.title,
         detailUrl: `/blogs/${article.ID}`,
         openInNewTab: false
       }))
-      .filter(image => Boolean(image.src))
+      .filter((image) => Boolean(image.src))
 
     return [...eventImages, ...articleImages]
   }, [events, articles])
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current
       setIsAtStart(scrollLeft <= 1)
       setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 1)
     }
@@ -78,7 +105,7 @@ export default function Carousel({
       checkScrollPosition()
       container.addEventListener('scroll', checkScrollPosition)
       window.addEventListener('resize', checkScrollPosition)
-      
+
       return () => {
         container.removeEventListener('scroll', checkScrollPosition)
         window.removeEventListener('resize', checkScrollPosition)
@@ -97,6 +124,10 @@ export default function Carousel({
 
     return () => cancelAnimationFrame(rafId)
   }, [carouselImages.length])
+
+  if (carouselImages.length === 0) {
+    return null
+  }
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -159,11 +190,16 @@ export default function Carousel({
                 onClick={() => openImageModal(image)}
               >
                 <Image
-                  src={image.src}
+                  src={getCloudinaryImageUrl(
+                    image.src,
+                    'w_800,c_fill,f_auto,q_auto'
+                  )}
                   alt={image.alt || `Activity ${index + 1}`}
                   width={400}
                   height={300}
                   className={styles.image}
+                  sizes="(max-width: 480px) 200px, (max-width: 768px) 250px, (max-width: 1299px) 387px, (max-width: 1799px) 300px, 405px"
+                  preload={index === 0}
                   unoptimized
                 />
               </div>
@@ -185,7 +221,7 @@ export default function Carousel({
         <div className={styles.modal} onClick={closeImageModal}>
           <div
             className={styles.modalContent}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               className={styles.closeButton}
@@ -196,11 +232,15 @@ export default function Carousel({
             </button>
             <div className={styles.imageContainer}>
               <Image
-                src={selectedImage.src}
+                src={getCloudinaryImageUrl(
+                  selectedImage.src,
+                  'w_1600,c_limit,f_auto,q_auto'
+                )}
                 alt={selectedImage.alt || 'Enlarged view'}
                 width={800}
                 height={600}
                 className={styles.modalImage}
+                sizes="90vw"
                 unoptimized
               />
               <button
