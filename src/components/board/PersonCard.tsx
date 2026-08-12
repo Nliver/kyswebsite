@@ -42,7 +42,7 @@ export default function PersonCard({
   return (
     <Card
       className={styles.personCard}
-      bodyStyle={{ padding: 0 }}
+      styles={{ body: { padding: 0 } }}
       hoverable
       onClick={onDetailClick}
       style={{ cursor: onDetailClick ? 'pointer' : 'default' }}

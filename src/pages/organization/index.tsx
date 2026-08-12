@@ -92,7 +92,7 @@ export default function OrganizationPage() {
        
       <div className={styles.mapLegend}>
         <Card size="small" title="图例说明">
-          <Space direction="vertical" size="small">
+          <Space orientation="vertical" size="small">
             <div className={styles.legendItem}>
               <div className={styles.marker}></div>
               <span>组织位置</span>
@@ -143,7 +143,7 @@ export default function OrganizationPage() {
                   </Space>
                 }
                 description={
-                  <Space direction="vertical" size="small" className={styles.fullWidth}>
+                  <Space orientation="vertical" size="small" className={styles.fullWidth}>
                     <div className={styles.description}>
                       {org.description}
                     </div>

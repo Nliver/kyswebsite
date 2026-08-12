@@ -66,12 +66,14 @@ export function DAppOption({ dapp }: DAppOptionProps) {
       placement="right"
       mouseEnterDelay={0.5}
       mouseLeaveDelay={0.1}
-      overlayStyle={{ maxWidth: '350px' }}
-      trigger={['hover']}
-      overlayInnerStyle={{
-        padding: '12px',
-        borderRadius: '8px'
+      styles={{
+        root: { maxWidth: '350px' },
+        container: {
+          padding: '12px',
+          borderRadius: '8px'
+        }
       }}
+      trigger={['hover']}
     >
       <div style={{
         display: 'flex',

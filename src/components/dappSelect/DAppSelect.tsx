@@ -35,7 +35,10 @@ export default function DAppSelect({
       value={value}
       onChange={onChange}
       allowClear={allowClear}
-      showSearch
+      showSearch={{
+        filterOption: false,
+        onSearch: handleDappSearch,
+      }}
       placeholder={placeholder}
       notFoundContent={
         dappLoading
@@ -44,14 +47,11 @@ export default function DAppSelect({
             ? `未找到包含"${dappSearchKeyword}"的DApp`
             : '暂无数据'
       }
-      filterOption={false}
-      onSearch={handleDappSearch}
       loading={dappLoading || loading}
       disabled={disabled}
       defaultActiveFirstOption={false}
-      autoClearSearchValue={false}
       optionLabelProp="label"
-      dropdownStyle={{ maxHeight: '300px' }}
+      styles={{ popup: { root: { maxHeight: '300px' } } }}
       className={className}
     >
       {dappList.map((dapp) => (

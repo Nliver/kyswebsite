@@ -498,7 +498,7 @@ const DetailSection = ({
         size="large"
         items={items}
         onChange={onChange}
-        tabPosition={isMobile ? 'top' : 'left'}
+        tabPlacement={isMobile ? 'top' : 'start'}
         className={isMobile ? styles.mobileTabs : ''}
       />
     </div>
