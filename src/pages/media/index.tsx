@@ -411,7 +411,7 @@ const MediaManager: React.FC<MediaManagerProps> = () => {
               title="总图片数"
               value={total}
               prefix={<ImageIcon size={20} />}
-              valueStyle={{ color: '#3f8600' }}
+              styles={{ content: { color: '#3f8600' } }}
             />
           </Card>
         </Col>
@@ -421,7 +421,7 @@ const MediaManager: React.FC<MediaManagerProps> = () => {
               title="当前显示"
               value={images.length}
               prefix={<Eye size={20} />}
-              valueStyle={{ color: '#1890ff' }}
+              styles={{ content: { color: '#1890ff' } }}
             />
           </Card>
         </Col>
@@ -431,7 +431,7 @@ const MediaManager: React.FC<MediaManagerProps> = () => {
               title="文件夹数"
               value={folders.length}
               prefix={<Cloud size={20} />}
-              valueStyle={{ color: '#722ed1' }}
+              styles={{ content: { color: '#722ed1' } }}
             />
           </Card>
         </Col>
@@ -441,7 +441,7 @@ const MediaManager: React.FC<MediaManagerProps> = () => {
               title="总大小"
               value={images.reduce((acc, img) => acc + img.bytes, 0)}
               formatter={(value) => formatBytes(Number(value))}
-              valueStyle={{ color: '#cf1322' }}
+              styles={{ content: { color: '#cf1322' } }}
             />
           </Card>
         </Col>

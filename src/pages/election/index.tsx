@@ -245,8 +245,8 @@ export default function ElectionPage() {
                 支持
               </Button>
               <Button
-                type={candidate.voted === false ? "primary" : "default"}
-                danger={candidate.voted === false}
+                color={candidate.voted === false ? "danger" : "default"}
+                variant={candidate.voted === false ? "solid" : "outlined"}
                 icon={<X size={16} />}
                 onClick={() => handleVote(candidate.id, false, section)}
                 className={`${styles.voteButton} ${styles.rejectButton}`}

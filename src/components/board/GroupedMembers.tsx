@@ -36,7 +36,7 @@ export default function GroupedMembers({ members, title = "正式成员" }: Grou
         
         {Object.entries(groupedMembers).map(([groupName, groupMembers]) => (
           <div key={groupName} className={styles.groupSection}>
-            <Divider orientation="left" className={styles.groupDivider}>
+            <Divider titlePlacement="start" className={styles.groupDivider}>
               <h3 className={styles.groupTitle}>{groupName}</h3>
             </Divider>
             

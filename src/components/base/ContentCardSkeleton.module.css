@@ -1,0 +1,26 @@
+.card {
+  min-height: 390px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--primary-200);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 1024px) {
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.25rem;
+    border-radius: 1rem;
+  }
+}

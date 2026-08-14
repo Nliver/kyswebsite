@@ -13,15 +13,68 @@
   gap: 20px;
 }
 
+.carouselSkeleton {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.skeletonImage {
+  flex: 0 0 387px;
+  height: 258px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.28) 25%,
+    rgba(255, 255, 255, 0.52) 37%,
+    rgba(255, 255, 255, 0.28) 63%
+  );
+  background-size: 400% 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  animation: carouselSkeletonLoading 1.4s ease infinite;
+}
+
+@keyframes carouselSkeletonLoading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
 @media (min-width: 1300px) {
   .container {
     max-width: 1260px;
+  }
+
+  .carouselSkeleton {
+    max-width: 1260px;
+  }
+
+  .skeletonImage {
+    flex-basis: 300px;
+    height: 200px;
   }
 }
 
 @media (min-width: 1800px) {
   .container {
     max-width: 1680px;
+  }
+
+  .carouselSkeleton {
+    max-width: 1680px;
+  }
+
+  .skeletonImage {
+    flex-basis: 405px;
+    height: 270px;
   }
 }
 
@@ -123,7 +176,7 @@
 }
 
 .imageWrapper::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -269,41 +322,50 @@
   .carousel {
     padding: 40px 10px;
   }
-  
+
   .container {
     gap: 10px;
   }
-  
+
+  .carouselSkeleton {
+    gap: 15px;
+  }
+
+  .skeletonImage {
+    flex-basis: 250px;
+    height: 166px;
+  }
+
   .navButton {
     display: none;
   }
-  
+
   .imageWrapper {
     width: 250px;
     height: 166px;
   }
-  
+
   .imageGrid {
     gap: 15px;
   }
-  
+
   .modalContent {
     max-width: 95vw;
     max-height: 95vh;
   }
-  
+
   .detailButton {
     bottom: 15px;
     right: 15px;
     font-size: 12px;
     padding: 8px 16px;
   }
-  
+
   .scrollContainer {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .imageWrapper {
     scroll-snap-align: start;
   }
@@ -313,11 +375,20 @@
   .navButton {
     display: none;
   }
-  
+
   .container {
     gap: 0;
   }
-  
+
+  .carouselSkeleton {
+    gap: 15px;
+  }
+
+  .skeletonImage {
+    flex-basis: 200px;
+    height: 133px;
+  }
+
   .imageWrapper {
     width: 200px;
     height: 133px;

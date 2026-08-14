@@ -229,7 +229,7 @@ const EventsCalendar: React.FC = () => {
               {selectedDate.format('YYYY年MM月DD日')} 的活动 ({selectedEvents.length}场)
             </div>
           }
-          width={600}
+          size={600}
           open={drawerVisible}
           onClose={() => setDrawerVisible(false)}
         >
@@ -388,7 +388,7 @@ const EventsCalendar: React.FC = () => {
               <Title level={4} className={styles.modalEventTitle}>{selectedEvent.title}</Title>
               <Paragraph className={styles.modalDescription}>{selectedEvent.description}</Paragraph>
               
-              <Space direction="vertical" size="middle" className={styles.modalInfo}>
+              <Space orientation="vertical" size="middle" className={styles.modalInfo}>
                 <div className={styles.modalInfoItem}>
                   <Text className={styles.modalInfoLabel}>开始时间：</Text>
                   <Text className={styles.modalInfoValue}>{dayjs(selectedEvent.start_time).format('YYYY-MM-DD HH:mm')}</Text>

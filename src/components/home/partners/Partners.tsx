@@ -132,8 +132,8 @@ export default function PartnersSection() {
                         <Image
                           src={partner.logo}
                           alt={partner.title}
-                          width={120}
-                          height={80}
+                          fill
+                          sizes="(max-width: 480px) 80px, (max-width: 768px) 100px, 120px"
                           className={styles.partnerLogo}
                         />
                       </div>
@@ -160,8 +160,8 @@ export default function PartnersSection() {
                         <Image
                           src={partner.logo}
                           alt={partner.title}
-                          width={120}
-                          height={80}
+                          fill
+                          sizes="(max-width: 480px) 80px, (max-width: 768px) 100px, 120px"
                           className={styles.partnerLogo}
                         />
                       </div>

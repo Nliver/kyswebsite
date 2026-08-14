@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslation } from '../hooks/useTranslation'
-import { FacebookIcon, LinkedinIcon, Github } from 'lucide-react'
+import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa'
 import { SiBilibili, SiWechat, SiX } from 'react-icons/si'
 import { useState } from 'react'
 import { Modal } from 'antd'
@@ -149,7 +149,7 @@ export default function Footer() {
                   className={styles.socialButton}
                   aria-label="GitHub"
                 >
-                  <Github className={styles.socialIcon} />
+                  <FaGithub className={styles.socialIcon} />
                 </Link>
                 <Link
                   href="https://x.com/kaiyuanshe"
@@ -167,7 +167,7 @@ export default function Footer() {
                   className={styles.socialButton}
                   aria-label="Facebook"
                 >
-                  <FacebookIcon className={styles.socialIcon} />
+                  <FaFacebook className={styles.socialIcon} />
                 </Link>
                 <Link
                   href="https://www.linkedin.com/company/kaiyuanshe/"
@@ -176,7 +176,7 @@ export default function Footer() {
                   className={styles.socialButton}
                   aria-label="LinkedIn"
                 >
-                  <LinkedinIcon className={styles.socialIcon} />
+                  <FaLinkedin className={styles.socialIcon} />
                 </Link>
                 <Link
                   href="https://space.bilibili.com/525037536"
