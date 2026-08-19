@@ -12,13 +12,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 20.19
 
       - name: Install dependencies
         run: npm install --force
+
+      - name: Sync static images to Cloudinary
+        if: github.event_name == 'push'
+        env:
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          CLOUDINARY_STATIC_FOLDER: ${{ vars.CLOUDINARY_STATIC_FOLDER }}
+        run: npm run images:sync
 
       - name: Build Next.js
         run: npm run build
@@ -28,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
@@ -37,4 +46,3 @@ jobs:
       - name: Build Go Backend
         working-directory: ./kaiyuanshe
         run: go build -v .
-

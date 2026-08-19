@@ -1,11 +1,15 @@
+export type MemberGender = "男" | "女" | "不想透露";
+
 export interface Member {
+  id: number;
   name: string;
-  gender: '男' | '女';
+  gender: MemberGender;
   avatar?: string;
   city?: string;
   email?: string;
   website?: string;
   github?: string;
+  linkedin?: string;
   skills?: string[];
   bio?: string;
   nickname?: string;
@@ -17,12 +21,13 @@ export interface Member {
   details: any[];
 }
 
-export type MemberSortBy = 'name' | 'city' | 'company' | 'position';
-export type MemberFilterBy = 'gender' | 'city' | 'skills' | 'hasGithub' | 'hasWebsite';
+export type MemberSortBy = "name" | "city" | "company" | "position";
+export type MemberFilterBy =
+  "gender" | "city" | "skills" | "hasGithub" | "hasWebsite";
 
 export interface MemberSearchOptions {
   keyword?: string;
-  gender?: '男' | '女';
+  gender?: MemberGender;
   city?: string;
   skill?: string;
   hasGithub?: boolean;
