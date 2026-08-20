@@ -21,7 +21,7 @@ jobs:
         run: npm install --force
 
       - name: Sync static images to Cloudinary
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.repository == 'kaiyuanshe/website'
         env:
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}

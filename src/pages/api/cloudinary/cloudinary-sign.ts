@@ -7,10 +7,11 @@ export default async function handler(
 ) {
   const timestamp = Math.round(Date.now() / 1000);
   const folder = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_FOLDERS || '';
-  const apiSecret =
-    process.env.CLOUDINARY_API_SECRET ||
-    process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET ||
-    '';
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+  if (!apiSecret) {
+    return res.status(500).json({ error: 'Cloudinary is not configured' });
+  }
 
   const signature = cloudinary.utils.api_sign_request(
     { timestamp, folder },

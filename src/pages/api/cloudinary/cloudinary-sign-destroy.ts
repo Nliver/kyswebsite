@@ -11,12 +11,14 @@ export default async function handler(
 
   const { publicId } = req.body;
   const timestamp = Math.floor(Date.now() / 1000);
-  const apiSecret =
-    process.env.CLOUDINARY_API_SECRET ||
-    process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
-  if (!publicId || !apiSecret) {
-    return res.status(400).json({ error: 'Missing publicId or API secret' });
+  if (!apiSecret) {
+    return res.status(500).json({ error: 'Cloudinary is not configured' });
+  }
+
+  if (!publicId) {
+    return res.status(400).json({ error: 'Missing publicId' });
   }
 
   // ⚠️ 字段顺序必须严格遵守 Cloudinary 的签名规则

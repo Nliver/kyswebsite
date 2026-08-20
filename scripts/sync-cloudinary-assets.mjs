@@ -141,10 +141,7 @@ async function main() {
     'CLOUDINARY_API_KEY',
     'NEXT_PUBLIC_CLOUDINARY_API_KEY'
   )
-  const apiSecret = getEnvironmentValue(
-    'CLOUDINARY_API_SECRET',
-    'NEXT_PUBLIC_CLOUDINARY_API_SECRET'
-  )
+  const apiSecret = process.env.CLOUDINARY_API_SECRET || ''
   const missingVariables = [
     ['CLOUDINARY_CLOUD_NAME', cloudName],
     ['CLOUDINARY_API_KEY', apiKey],
